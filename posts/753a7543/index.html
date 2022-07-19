@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.6 -->
+    <script>
+        window.materialVersion = "1.5.6"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0',
+            '1.5.2',
+            '1.5.5'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+
+
+
+
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+
+
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            redis常见的使用案例 | 
+        
+        simmyo_z的博客
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" itemprop="description" content>
+    <meta name="keywords" content="blog 前端 javascript 算法 日志 css html,redis">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?uVzgA6RLrOm13Ukw8Qgy+A==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/github-v2.min.css?AfzKxt++K+/lhZBlSjnxwg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?ezyEvm8ST5CGfpA+kFFi1g==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="simmyo_z的博客">
+    <meta name="msapplication-starturl" content="https://zzz1220.github.io/posts/753a7543/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="simmyo_z的博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://zzz1220.github.io/posts/753a7543/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="redis常见的使用案例 | simmyo_z的博客">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content>
+    <meta property="og:article:tag" content="redis"> 
+
+    
+        <meta property="article:published_time" content="Sun May 30 2021 20:15:43 GMT+0800">
+        <meta property="article:modified_time" content="Tue Jul 19 2022 15:46:00 GMT+0000">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://zzz1220.github.io/posts/753a7543/index.html">
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://zzz1220.github.io/posts/753a7543/index.html",
+    "headline": "redis常见的使用案例",
+    "datePublished": "Sun May 30 2021 20:15:43 GMT+0800",
+    "dateModified": "Tue Jul 19 2022 15:46:00 GMT+0000",
+    "author": {
+        "@type": "Person",
+        "name": "zzz1220",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.jpeg"
+        },
+        "description": "时间都去哪儿了"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "simmyo_z的博客",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",redisblog 前端 javascript 算法 日志 css html",
+    "description": "",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-145111272-1', 'auto');ga('send', 'pageview');
+</script>
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span id="MD-burger-id" class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简单回顾下redis是什么"><span class="post-toc-number">1.</span> <span class="post-toc-text">¶简单回顾下redis是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis的特点"><span class="post-toc-number">2.</span> <span class="post-toc-text">¶redis的特点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#五种数据类型和常见用法"><span class="post-toc-number">3.</span> <span class="post-toc-text">¶五种数据类型和常见用法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-string"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">¶1. string</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#常见的场景"><span class="post-toc-number">3.1.1.</span> <span class="post-toc-text">¶常见的场景</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-hash"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">¶2. hash</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用场景"><span class="post-toc-number">3.2.1.</span> <span class="post-toc-text">¶使用场景</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-list"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">¶3. list</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用场景-v2"><span class="post-toc-number">3.3.1.</span> <span class="post-toc-text">¶使用场景</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-set"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">¶4. set</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用场景-v3"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">¶使用场景</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-sorted-set"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">¶5. sorted_set</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用场景-v4"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">¶使用场景</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#其他功能"><span class="post-toc-number">4.</span> <span class="post-toc-text">¶其他功能</span></a></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 42 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                redis常见的使用案例
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.jpeg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>zzz1220</strong>
+        <span>5月 30, 2021</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">devices other</i>
+    <span class="visuallyhidden">devices other</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
+    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
+    
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACaklEQVR42u3aS47CMBAFQO5/aWY70ojwnn9kUHmFQohdWXSbdj+eXz0eeHh4eHh4eHh4N+M94vH3Vy8n+PXt38/5XINrw8PDwzvCexNqX9yTIHPq9avJ14aHh4d3kpdPeZ0q8mUliSFfGx4eHt7/5eVXki04Hh4e3rfyroN+nhhm1oaHh4d3nteWZfN7EvAtai14eHh4Ma89lDr5+ej5Hh4eHl7Aq1uaggnybXES+usV4uHh4W3m5YE42s6WjVPzh2R4eHh4n+K1DQF5uB9rS21fFh4eHt5JXhvW2+ttaknaDorEgIeHh3eEl0xcHOTHiWds3jox4OHh4S3i5U1UeTppATnvzZ14eHh4m3lj0880AeTFjmW1Fjw8PLylvLE///mVmSO0wWfi4eHhHeElY56UHG7lm/i6jIuHh4e3iJeXYpNNdlLeTRadbK9frhYPDw9vMy8J8TPBul3oWAsXHh4e3nlevvFdtaVuCx8Lmq7w8PDwlvKuGW35YOZpYwMPDw/vPK9tAmh/lSSGsdYuPDw8vPO85G9/W1zICwptQSR6iXh4eHhHeHmwHjvcalNI22qAh4eH91leu7FuA/dU0G+LEXh4eHhHeHl6mEkkYwXcZzDw8PDwdvPakR9uJUvPn1ykJTw8PLzNvMHj+SBhtJi8zFE0XeHh4eFt4yXJoN1M59/miWFxMQIPDw9vmjcW7nNAXvadKUng4eHh3Z/XFnPnX8rRxICHh4e3iJc3RbVl3/Y4bUtiwMPDw1ta52wTQNuU0JZ08fDw8D7Fy7e8bZl1vkTbIvHw8PB2875v4OHh4eHh4eHh3WD8AFXzzkq9ixytAAAAAElFTkSuQmCC">
+    
+</ul>
+
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/redis/">redis</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=redis常见的使用案例&url=https://zzz1220.github.io/posts/753a7543/index.html&pic=https://zzz1220.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=redis常见的使用案例&url=https://zzz1220.github.io/posts/753a7543/index.html&via=zzz1220" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://zzz1220.github.io/posts/753a7543/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://zzz1220.github.io/posts/753a7543/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=simmyo_z的博客&title=redis常见的使用案例&summary=&pics=https://zzz1220.github.io/img/favicon.png&url=https://zzz1220.github.io/posts/753a7543/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+<div style="padding-left:3rem;font-size: 1rem;">
+    👉👉本文共<span class="post-count">3k</span>字📘
+    读完共需<span class="post-count">15</span>分钟⌚
+</div>
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <blockquote>
+<p><code>redis</code>除了缓存，还有很多的使用方式，互联网项目的很多功能都是通过<code>redis</code>实现的，今天简单介绍一些。</p>
+</blockquote>
+<h2 id="简单回顾下redis是什么"><a class="header-anchor" href="#简单回顾下redis是什么">¶</a>简单回顾下redis是什么</h2>
+<p><code>Redis</code>是一个使用<code>ANSI C</code>编写的开源、支持网络、基于内存、分布式、可选持久性的键值对存储数据库。从2015年6月开始，<code>Redis</code>的开发由<code>Redis Labs</code>赞助，而2013年5月至2015年6月期间，其开发由<code>Pivotal</code>赞助。在2013年5月之前，其开发由<code>VMware</code>赞助。根据月度排行网站<code>DB-Engines.com</code>的数据，<code>Redis</code>是最流行的键值对存储数据库。</p>
+<h2 id="redis的特点"><a class="header-anchor" href="#redis的特点">¶</a>redis的特点</h2>
+<ol>
+<li>高性能<br>
+性能极高 – <code>Redis</code>能读的速度是110000次/s,写的速度是81000次/s 。</li>
+<li>和原生语言无缝的数据结构<br>
+<code>Redis</code>支持二进制案例的 <code>Strings</code>, <code>Lists</code>, <code>Hashes</code>, <code>Sets</code> 及 <code>Ordered Sets</code> 数据类型操作。</li>
+<li>丰富的特性<br>
+Redis还支持 <code>publish/subscribe</code>, 通知, <code>key</code> 过期等等特性。</li>
+<li>支持持久化<br>
+<code>Redis</code>支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。</li>
+<li>分布式<br>
+<code>Redis</code>支持数据的备份，即<code>master-slave</code>模式的数据备份。</li>
+<li>高可用<br>
+<code>Redis Sentinel</code> 一个分布式架构，监控各个机器的状态及时作出调整，重新选取主节点。</li>
+</ol>
+<h2 id="五种数据类型和常见用法"><a class="header-anchor" href="#五种数据类型和常见用法">¶</a>五种数据类型和常见用法</h2>
+<h3 id="1-string"><a class="header-anchor" href="#1-string">¶</a>1. <code>string</code></h3>
+<p><code>string</code>在<code>redis</code>里是通过字符数组实现的。你可以理解成与 Memcached 一模一样的类型，一个 key 对应一个 value。value其实不仅是String，也可以是数字。string 类型是二进制安全的。意思是 redis 的 string 可以包含任何数据。比如jpg图片或者序列化的对象。string 类型是 Redis 最基本的数据类型，string 类型的值最大能存储 512MB。</p>
+<h4 id="常见的场景"><a class="header-anchor" href="#常见的场景">¶</a>常见的场景</h4>
+<ol>
+<li><code>json</code>字符串储存缓存</li>
+<li><code>string</code>也可以是一个数字，所以也可以作为计数器，使用<code>INCR</code>命令</li>
+<li><code>redis</code>也支持二进制，所以可以当作一个<code>bitmap</code>,把固定长度的bit位储存数据。</li>
+<li>布隆过滤器，一个很长的二进制向量，作为超大的包含关系的查询。详细点击<a href="https://www.huaweicloud.com/articles/cd70d43549f0a4c36641be61780ab66a.html" target="_blank" rel="noopener">这里</a></li>
+<li>分布式锁，比较复杂，可以看下<a href="https://xiaomi-info.github.io/2019/12/17/redis-distributed-lock/" target="_blank" rel="noopener">这里</a>。</li>
+</ol>
+<p>常用命令：</p>
+<pre><code class="language-bash">
+  APPEND key value
+  summary: Append a value to a key
+  since: 2.0.0
+
+  BITCOUNT key [start end]
+  summary: Count set bits in a string
+  since: 2.6.0
+
+  BITFIELD key [GET type offset] [SET type offset value] [INCRBY type offset increment] [OVERFLOW WRAP|SAT|FAIL]
+  summary: Perform arbitrary bitfield integer operations on strings
+  since: 3.2.0
+
+  BITOP operation destkey key [key ...]
+  summary: Perform bitwise operations between strings
+  since: 2.6.0
+
+  BITPOS key bit [start] [end]
+  summary: Find first bit set or clear in a string
+  since: 2.8.7
+
+  DECR key
+  summary: Decrement the integer value of a key by one
+  since: 1.0.0
+
+  DECRBY key decrement
+  summary: Decrement the integer value of a key by the given number
+  since: 1.0.0
+
+  GET key
+  summary: Get the value of a key
+  since: 1.0.0
+
+  GETBIT key offset
+  summary: Returns the bit value at offset in the string value stored at key
+  since: 2.2.0
+
+  GETRANGE key start end
+  summary: Get a substring of the string stored at a key
+  since: 2.4.0
+
+  GETSET key value
+  summary: Set the string value of a key and return its old value
+  since: 1.0.0
+
+  INCR key
+  summary: Increment the integer value of a key by one
+  since: 1.0.0
+
+  INCRBY key increment
+  summary: Increment the integer value of a key by the given amount
+  since: 1.0.0
+
+  INCRBYFLOAT key increment
+  summary: Increment the float value of a key by the given amount
+  since: 2.6.0
+
+  MGET key [key ...]
+  summary: Get the values of all the given keys
+  since: 1.0.0
+
+  MSET key value [key value ...]
+  summary: Set multiple keys to multiple values
+  since: 1.0.1
+
+  MSETNX key value [key value ...]
+  summary: Set multiple keys to multiple values, only if none of the keys exist
+  since: 1.0.1
+
+  PSETEX key milliseconds value
+  summary: Set the value and expiration in milliseconds of a key
+  since: 2.6.0
+
+  SET key value [EX seconds] [PX milliseconds] [NX|XX]
+  summary: Set the string value of a key
+  since: 1.0.0
+
+  SETBIT key offset value
+  summary: Sets or clears the bit at offset in the string value stored at key
+  since: 2.2.0
+
+  SETEX key seconds value
+  summary: Set the value and expiration of a key
+  since: 2.0.0
+
+  SETNX key value
+  summary: Set the value of a key, only if the key does not exist
+  since: 1.0.0
+
+  SETRANGE key offset value
+  summary: Overwrite part of a string at key starting at the specified offset
+  since: 2.2.0
+
+  STRLEN key
+  summary: Get the length of the value stored in a key
+  since: 2.2.0
+
+</code></pre>
+<h3 id="2-hash"><a class="header-anchor" href="#2-hash">¶</a>2. hash</h3>
+<p>Hash 是一个键值(key =&gt; value)对集合。Redis hash 是一个 string 类型的 field 和 value 的映射表，hash 特别适合用于存储对象。比如储存用户信息。用户id作为key，姓名，年龄，生日等信息可以维护序列化的对象。</p>
+<h4 id="使用场景"><a class="header-anchor" href="#使用场景">¶</a>使用场景</h4>
+<ol>
+<li>存储对象类数据，因此可以存一些结构化的数据，比如购物车，用户基本信息。</li>
+</ol>
+<pre><code class="language-bash">
+  HDEL key field [field ...]
+  summary: Delete one or more hash fields
+  since: 2.0.0
+
+  HEXISTS key field
+  summary: Determine if a hash field exists
+  since: 2.0.0
+
+  HGET key field
+  summary: Get the value of a hash field
+  since: 2.0.0
+
+  HGETALL key
+  summary: Get all the fields and values in a hash
+  since: 2.0.0
+
+  HINCRBY key field increment
+  summary: Increment the integer value of a hash field by the given number
+  since: 2.0.0
+
+  HINCRBYFLOAT key field increment
+  summary: Increment the float value of a hash field by the given amount
+  since: 2.6.0
+
+  HKEYS key
+  summary: Get all the fields in a hash
+  since: 2.0.0
+
+  HLEN key
+  summary: Get the number of fields in a hash
+  since: 2.0.0
+
+  HMGET key field [field ...]
+  summary: Get the values of all the given hash fields
+  since: 2.0.0
+
+  HMSET key field value [field value ...]
+  summary: Set multiple hash fields to multiple values
+  since: 2.0.0
+
+  HSCAN key cursor [MATCH pattern] [COUNT count]
+  summary: Incrementally iterate hash fields and associated values
+  since: 2.8.0
+
+  HSET key field value
+  summary: Set the string value of a hash field
+  since: 2.0.0
+
+  HSETNX key field value
+  summary: Set the value of a hash field, only if the field does not exist
+  since: 2.0.0
+
+  HSTRLEN key field
+  summary: Get the length of the value of a hash field
+  since: 3.2.0
+
+  HVALS key
+  summary: Get all the values in a hash
+  since: 2.0.0
+
+</code></pre>
+<h3 id="3-list"><a class="header-anchor" href="#3-list">¶</a>3. list</h3>
+<p>list 列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）。<br>
+可以作为一个简单的消息队列。</p>
+<h4 id="使用场景-v2"><a class="header-anchor" href="#使用场景-v2">¶</a>使用场景</h4>
+<ol>
+<li>简易消息队列，右(左)边进左(右)边出，用来消费队列里的信息。但是ack机制麻烦，复杂场景还是使用专业的mq。</li>
+<li>作为栈使用，支持右(左)边进右(左)边出。</li>
+<li>用于储存线性数据，比如某个人的关注列表。文章点赞的人的id。</li>
+</ol>
+<pre><code class="language-bash">
+  BLPOP key [key ...] timeout
+  summary: Remove and get the first element in a list, or block until one is available
+  since: 2.0.0
+
+  BRPOP key [key ...] timeout
+  summary: Remove and get the last element in a list, or block until one is available
+  since: 2.0.0
+
+  BRPOPLPUSH source destination timeout
+  summary: Pop a value from a list, push it to another list and return it; or block until one is available
+  since: 2.2.0
+
+  LINDEX key index
+  summary: Get an element from a list by its index
+  since: 1.0.0
+
+  LINSERT key BEFORE|AFTER pivot value
+  summary: Insert an element before or after another element in a list
+  since: 2.2.0
+
+  LLEN key
+  summary: Get the length of a list
+  since: 1.0.0
+
+  LPOP key
+  summary: Remove and get the first element in a list
+  since: 1.0.0
+
+  LPUSH key value [value ...]
+  summary: Prepend one or multiple values to a list
+  since: 1.0.0
+
+  LPUSHX key value
+  summary: Prepend a value to a list, only if the list exists
+  since: 2.2.0
+
+  LRANGE key start stop
+  summary: Get a range of elements from a list
+  since: 1.0.0
+
+  LREM key count value
+  summary: Remove elements from a list
+  since: 1.0.0
+
+  LSET key index value
+  summary: Set the value of an element in a list by its index
+  since: 1.0.0
+
+  LTRIM key start stop
+  summary: Trim a list to the specified range
+  since: 1.0.0
+
+  RPOP key
+  summary: Remove and get the last element in a list
+  since: 1.0.0
+
+  RPOPLPUSH source destination
+  summary: Remove the last element in a list, prepend it to another list and return it
+  since: 1.2.0
+
+  RPUSH key value [value ...]
+  summary: Append one or multiple values to a list
+  since: 1.0.0
+
+  RPUSHX key value
+  summary: Append a value to a list, only if the list exists
+  since: 2.2.0
+
+
+</code></pre>
+<h3 id="4-set"><a class="header-anchor" href="#4-set">¶</a>4. set</h3>
+<p>set 是string类型的无序集合。集合是通过hashtable实现的，概念和数学中个的集合基本类似，可以交集，并集，差集等等，set中的元素是没有顺序的。所以添加，删除，查找的复杂度都是O(1)。</p>
+<h3 id="使用场景-v3"><a class="header-anchor" href="#使用场景-v3">¶</a>使用场景</h3>
+<ol>
+<li>去重，多台服务可以放在一个set里去重。</li>
+<li>redis 提供了求交集、并集、差集的操作，可以非常方便的实现如共同关注、共同喜好、二度好友等功能。</li>
+</ol>
+<pre><code class="language-bash">
+  SADD key member [member ...]
+  summary: Add one or more members to a set
+  since: 1.0.0
+
+  SCARD key
+  summary: Get the number of members in a set
+  since: 1.0.0
+
+  SDIFF key [key ...]
+  summary: Subtract multiple sets
+  since: 1.0.0
+
+  SDIFFSTORE destination key [key ...]
+  summary: Subtract multiple sets and store the resulting set in a key
+  since: 1.0.0
+
+  SINTER key [key ...]
+  summary: Intersect multiple sets
+  since: 1.0.0
+
+  SINTERSTORE destination key [key ...]
+  summary: Intersect multiple sets and store the resulting set in a key
+  since: 1.0.0
+
+  SISMEMBER key member
+  summary: Determine if a given value is a member of a set
+  since: 1.0.0
+
+  SMEMBERS key
+  summary: Get all the members in a set
+  since: 1.0.0
+
+  SMOVE source destination member
+  summary: Move a member from one set to another
+  since: 1.0.0
+
+  SPOP key [count]
+  summary: Remove and return one or multiple random members from a set
+  since: 1.0.0
+
+  SRANDMEMBER key [count]
+  summary: Get one or multiple random members from a set
+  since: 1.0.0
+
+  SREM key member [member ...]
+  summary: Remove one or more members from a set
+  since: 1.0.0
+
+  SSCAN key cursor [MATCH pattern] [COUNT count]
+  summary: Incrementally iterate Set elements
+  since: 2.8.0
+
+  SUNION key [key ...]
+  summary: Add multiple sets
+  since: 1.0.0
+
+  SUNIONSTORE destination key [key ...]
+  summary: Add multiple sets and store the resulting set in a key
+  since: 1.0.0
+
+</code></pre>
+<h3 id="5-sorted-set"><a class="header-anchor" href="#5-sorted-set">¶</a>5. sorted_set</h3>
+<p>zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。 *zadd 命令：*添加元素到集合，元素在集合中存在则更新对应score。set是有序的，根据<code>score</code>排序。</p>
+<h3 id="使用场景-v4"><a class="header-anchor" href="#使用场景-v4">¶</a>使用场景</h3>
+<ol>
+<li>因为自带排序，显示最新的项目列表 ，排行榜相关。</li>
+<li>处理过期项目，比如处理没付款的订单。根据下单时间放进<code>sorted_set</code>，后台任务根据<code>ZRANGE</code>查最近的几条数据，如果过期再回写到数据库。</li>
+</ol>
+<pre><code class="language-bash">
+  ZADD key [NX|XX] [CH] [INCR] score member [score member ...]
+  summary: Add one or more members to a sorted set, or update its score if it already exists
+  since: 1.2.0
+
+  ZCARD key
+  summary: Get the number of members in a sorted set
+  since: 1.2.0
+
+  ZCOUNT key min max
+  summary: Count the members in a sorted set with scores within the given values
+  since: 2.0.0
+
+  ZINCRBY key increment member
+  summary: Increment the score of a member in a sorted set
+  since: 1.2.0
+
+  ZINTERSTORE destination numkeys key [key ...] [WEIGHTS weight] [AGGREGATE SUM|MIN|MAX]
+  summary: Intersect multiple sorted sets and store the resulting sorted set in a new key
+  since: 2.0.0
+
+  ZLEXCOUNT key min max
+  summary: Count the number of members in a sorted set between a given lexicographical range
+  since: 2.8.9
+
+  ZRANGE key start stop [WITHSCORES]
+  summary: Return a range of members in a sorted set, by index
+  since: 1.2.0
+
+  ZRANGEBYLEX key min max [LIMIT offset count]
+  summary: Return a range of members in a sorted set, by lexicographical range
+  since: 2.8.9
+
+  ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]
+  summary: Return a range of members in a sorted set, by score
+  since: 1.0.5
+
+  ZRANK key member
+  summary: Determine the index of a member in a sorted set
+  since: 2.0.0
+
+  ZREM key member [member ...]
+  summary: Remove one or more members from a sorted set
+  since: 1.2.0
+
+  ZREMRANGEBYLEX key min max
+  summary: Remove all members in a sorted set between the given lexicographical range
+  since: 2.8.9
+
+  ZREMRANGEBYRANK key start stop
+  summary: Remove all members in a sorted set within the given indexes
+  since: 2.0.0
+
+  ZREMRANGEBYSCORE key min max
+  summary: Remove all members in a sorted set within the given scores
+  since: 1.2.0
+
+  ZREVRANGE key start stop [WITHSCORES]
+  summary: Return a range of members in a sorted set, by index, with scores ordered from high to low
+  since: 1.2.0
+
+  ZREVRANGEBYLEX key max min [LIMIT offset count]
+  summary: Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.
+  since: 2.8.9
+
+  ZREVRANGEBYSCORE key max min [WITHSCORES] [LIMIT offset count]
+  summary: Return a range of members in a sorted set, by score, with scores ordered from high to low
+  since: 2.2.0
+
+  ZREVRANK key member
+  summary: Determine the index of a member in a sorted set, with scores ordered from high to low
+  since: 2.0.0
+
+  ZSCAN key cursor [MATCH pattern] [COUNT count]
+  summary: Incrementally iterate sorted sets elements and associated scores
+  since: 2.8.0
+
+  ZSCORE key member
+  summary: Get the score associated with the given member in a sorted set
+  since: 1.2.0
+
+  ZUNIONSTORE destination numkeys key [key ...] [WEIGHTS weight] [AGGREGATE SUM|MIN|MAX]
+  summary: Add multiple sorted sets and store the resulting sorted set in a new key
+  since: 2.0.0
+
+</code></pre>
+<h2 id="其他功能"><a class="header-anchor" href="#其他功能">¶</a>其他功能</h2>
+<ol>
+<li>Pub/Sub<br>
+Redis的Pub/Sub非常非常简单，运行稳定并且快速。可以作为发布订阅使用。<br>
+2.<code>geo</code><br>
+储存地理坐标数据，用来实现附近的人功能。</li>
+<li>HyperLogLog<br>
+<code>Redis HyperLogLog</code> 是用来做基数统计的算法，<code>HyperLogLog</code> 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的空间总是固定 的、并且是很小的。<br>
+在 <code>Redis</code> 里面，每个 <code>HyperLogLog</code> 键只需要花费 <code>12 KB</code> 内存，就可以计算接近 <code>2^64</code> 个不同元素的基 数。这和计算基数时，元素越多耗费内存就越多的集合形成鲜明对比。</li>
+</ol>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <!-- 使用 Gitalk -->
+<div id="gitalk-comment">
+    <!-- Gitalk 评论框 -->
+<div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script>
+    var gitalk = new Gitalk({
+            clientID: '7047f32466c59bed6274',
+            clientSecret: '50030c1dc4654f2f10f8df23b3a084692a8ce248',
+            repo: 'gitTalkBuck',
+            owner: 'zzz1220',
+            admin: ['zzz1220'],
+            // facebook-like distraction free mode
+            distractionFreeMode: false
+        })
+   gitalk.render('gitalk-container')
+</script>
+</div>
+<style>
+    #gitalk-comment {
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/posts/b998d6a0/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/posts/97160c27/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+<script>
+    (function initVisibilitychange() {
+        var title = document.title 
+        var key
+        document.addEventListener('visibilitychange', function() {
+            if(document.visibilityState === 'visible') {
+                document.title = "骗你的~~"
+                key = setTimeout(() => {
+                    document.title = title
+                },1500)
+            }else {
+                clearTimeout(key)
+                document.title = "糟糕~chrome崩溃了~~~"
+            }
+        })
+    })()
+    </script>
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.jpg);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.jpeg" alt="zzz1220's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2021/07/">七月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/05/">五月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/04/">四月 2021<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/12/">十二月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/06/">六月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/05/">五月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/code/">code<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/javaScript/">javaScript<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/tool/">tool<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于我">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于我
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/tags" title="标签云">
+                
+                    <i class="material-icons sidebar-material-icons">label</i>
+                
+                标签云
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/gallery" title="相册">
+                
+                    <i class="material-icons sidebar-material-icons">photo</i>
+                
+                相册
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/books" title="书单">
+                
+                    <i class="material-icons sidebar-material-icons">books</i>
+                
+                书单
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/movies" title="电影">
+                
+                    <i class="material-icons sidebar-material-icons">movie</i>
+                
+                电影
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/games" title="游戏">
+                
+                    <i class="material-icons sidebar-material-icons">face</i>
+                
+                游戏
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="链接">
+                
+                    <i class="material-icons sidebar-material-icons">linkify</i>
+                
+                链接
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">28</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar friend  -->
+        <!-- 友链页面 -->
+
+<style>
+.mdl-card.sidebar-card_friend{
+    padding: 20px;
+    width:auto;
+    overflow: hidden;
+    padding-top: 10px;
+}
+.mdl-card.sidebar-card_friend h6{
+    height: 28px;
+    line-height: 28px;
+    font-weight: 400;
+    white-space: nowrap;
+    text-decoration: none;
+    text-align: center;
+    font-size: 14px;
+    font-family: Roboto, "Helvetica Neue";
+    margin: 0 auto;
+}
+.mdl-card.sidebar-card_friend a{
+    color: black;
+    text-decoration-line: none;
+    font-family: Roboto, "Helvetica Neue";
+    width:fit-content;
+    width:-webkit-fit-content;
+    width:-moz-fit-content;
+    white-space: nowrap;
+    word-break: keep-all;
+    margin: 8px 4px;
+    font-size: 13px;
+}
+.mdl-card.sidebar-card_friend a:hover {
+    color: #00838F;
+}
+.mdl-card.sidebar-card_friend a::before {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #00838F;
+    left:-8px;
+    top:8px;
+}
+#friend-content{
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
+</style>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+    <a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+             sidebar.about_theme
+            <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/zzz1220" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+
+    <!-- V2EX -->
+    
+
+    <!-- Segmentfault -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;<span year></span>&nbsp;simmyo_z的博客
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?wgjW/HuQG9JDgvPDPoRAng==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?zvSPHDkEskkA20yxZY14lg==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?j10x2vnLBvyUc9TVmIDKCg==", true)</script>
+    
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+   <!-- GitTalk -->
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    var copyrightNow = new Date().getFullYear();
+    var textContent = document.querySelector('span[year]')
+
+    copyrightSince = 2017;
+    if (copyrightSince === copyrightNow||copyrightSince === 0000) {
+        textContent.textContent = copyrightNow
+    } else {
+        textContent.textContent = copyrightSince + ' - ' + copyrightNow
+    }
+
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.6 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+            <script id="dsq-count-scr" src="//zzz1220-1.disqus.com/count.js" async></script>
+        </body>
+    
+</html>
