@@ -109,6 +109,10 @@ pnpm:
 chatgpt:
     link: https://chatgpt.com/
     descr: "一个由OpenAI开发的大型语言模型，擅长回答问题、提供信息和进行对话"
+
+elevenlabs:
+    link: https://elevenlabs.io/
+    descr: "Eleven Labs 是一个专注于AI生成语音和语音合成的公司，提供高质量的文本转语音（TTS）服务。"
     
    
    
